@@ -3,6 +3,7 @@ package webServer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class QuestionDbGateway extends DbGateway{
@@ -51,5 +52,23 @@ public class QuestionDbGateway extends DbGateway{
         question.put("formulation", result.getString("formulation"));
         question.put("answer", result.getString("answer"));
         return question;
+    }
+
+    void insert(int quesNum,int idSubject, String question, String answer) throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        question=question+"<p>";
+        answer=answer+"<p>";
+        stmt.execute("INSERT INTO Question(idSubject,formulation,number,answer) VALUES (\""
+                 + idSubject + "\", \"" 
+                 + question + "\", \"" 
+                 + quesNum + "\", \"" 
+                 + answer + "\")");
+        stmt.close();
+    }
+
+    void delete(int idSubject) throws SQLException {
+        Statement stmt = getConnection().createStatement();
+        stmt.execute("DELETE FROM Question WHERE idSubject = " + idSubject);
+        stmt.close();
     }
 }

@@ -1,3 +1,4 @@
+
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -7,44 +8,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
 
-class TeacherController extends AbstractTemplateController {
-    public static int quesNum=0;
-    public TeacherController() throws IOException {
+
+public class TestEditorController extends AbstractTemplateController{
+    public TestEditorController() throws IOException {
     }
-
     @Override
     public void handle(HttpExchange he) throws IOException {
         HashMap<String,Object> model = new HashMap();
         String cookieStr = he.getRequestHeaders().get("Cookie").get(0);
-        String query = extractFromURI(he.getRequestURI());
-        quesNum=0;
+        String subjectId = extractFromURI(he.getRequestURI());
+        String requestBody = IOUtils.toString(he.getRequestBody(), "UTF-8");
+        HashMap<String, String> formValues = parseHtmlQuery(requestBody);
         try {
             UserDbGateway udbg = new UserDbGateway();
             SessionDbGateway sdbg = new SessionDbGateway();
             SubjectDbGateway sjdbg = new SubjectDbGateway();
-            GroupDbGateway gdbg = new GroupDbGateway();
-            String idSubjectForDel=parseHtmlQuery(query).get("del");
-            if(idSubjectForDel!=null){
-                sjdbg.delete(Integer.parseInt(idSubjectForDel));
-            }
+            QuestionDbGateway qdbg= new QuestionDbGateway();
             int idSession = sdbg.getSessionIdFromCookie(cookieStr);
+            Subject subject = sjdbg.findById(Integer.parseInt(subjectId));
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
+            ArrayList<Question> questions = qdbg.
+                    findAllByIdSubject(Integer.parseInt(subjectId));
+            model.put("questions", questions);
             model.put("login", user.getLogin());
-
-            ArrayList<Subject> subjects = sjdbg.findAll();
-            ArrayList<Group> groups =gdbg.findAll();
-            model.put("subjects", subjects);
-            model.put("groups", groups);
+            model.put("subject", subject);
 
         } catch (SQLException ex) {
-            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestEditorController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        respond(model, he);
+           respond(model, he);
     }
 
     @Override
     protected String getTemplateFilename() {
-        return "MainPageTeacher.ftl";
+        return "TestEditor.ftl";
     }
+    
 }

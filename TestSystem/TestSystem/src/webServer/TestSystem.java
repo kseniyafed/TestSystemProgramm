@@ -18,6 +18,10 @@ public class TestSystem {
         server.createContext("/testPage", new TestController());
         server.createContext("/resultPage", new ResultController());
         server.createContext("/groupPage", new GroupController());
+        server.createContext("/addSubjectPage", new AddSubjectController());
+        server.createContext("/createTestPage", new CreateTestController());
+        server.createContext("/subjectPage", new SubjectController());
+        server.createContext("/testEditor", new TestEditorController());
         
         server.start();
     }

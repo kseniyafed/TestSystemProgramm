@@ -27,17 +27,5 @@ class LoginController extends AbstractTemplateController {
         return "Authorization.ftl";
     }
 
-    private Integer extractError(URI requestURI) throws UnsupportedEncodingException {
-        if ( requestURI.getQuery() != null){
-            HashMap<String, String> map = parseHtmlQuery(requestURI.getQuery());
-            if(map.containsKey("err")){
-                return Integer.parseInt(map.get("err"));
-            }else{
-                return null;
-            }
-            
-        }else {
-            return null;
-        }
-    }
+    
 }
