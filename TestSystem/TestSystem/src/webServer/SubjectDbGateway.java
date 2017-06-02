@@ -65,7 +65,7 @@ public class SubjectDbGateway extends DbGateway {
     void insert(int number,String name,String teory) throws SQLException {
         Statement stmt = getConnection().createStatement();
 //        name=name+"<p>";
-//        teory="<p>"+teory;
+        teory="<p>"+teory;
         stmt.execute("INSERT INTO Subject(number,name,teory) VALUES (\""
                  + number + "\", \"" 
                  + name + "\", \"" 

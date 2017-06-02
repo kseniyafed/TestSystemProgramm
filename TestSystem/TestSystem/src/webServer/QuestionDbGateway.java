@@ -56,8 +56,8 @@ public class QuestionDbGateway extends DbGateway{
 
     void insert(int quesNum,int idSubject, String question, String answer) throws SQLException {
         Statement stmt = getConnection().createStatement();
-        question=question+"<p>";
-        answer=answer+"<p>";
+       // question=question+"<p>";
+        //answer=answer+"<p>";
         stmt.execute("INSERT INTO Question(idSubject,formulation,number,answer) VALUES (\""
                  + idSubject + "\", \"" 
                  + question + "\", \"" 
@@ -70,5 +70,11 @@ public class QuestionDbGateway extends DbGateway{
         Statement stmt = getConnection().createStatement();
         stmt.execute("DELETE FROM Question WHERE idSubject = " + idSubject);
         stmt.close();
+    }
+
+    void update(String idQuestion, String question, String answer) throws SQLException {
+      Statement stmt = getConnection().createStatement();
+
+        stmt.execute("UPDATE Question SET formulation = \"" + question + "\", answer = \"" + answer + "\" WHERE idQuestion = " + idQuestion);
     }
 }

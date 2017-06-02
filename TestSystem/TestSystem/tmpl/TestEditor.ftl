@@ -34,10 +34,10 @@
                <h1 align="left" style="font-size: 20px"><font color="#191970">Номер вопроса: ${question.number}</font></h1>
                 <div class="block2">
                 
-                <label for="question">Вопрос: &nbsp</label>
-                <input type="text" class="form-control" id="question" name="question" contenteditable="true"  style="font-size: 20px" value="${question.formulation}"></input>
-                <label for="answer">Ответ:</label> 
-                <input type="text" class="form-control" id="answer" name="answer" contenteditable="true"  style="font-size: 20px" value="${question.answer}"></input>
+                <label for="${question.idQuestion}question">Вопрос: &nbsp</label>
+                <input type="text" class="form-control" id="${question.idQuestion}question" name="${question.idQuestion}question" contenteditable="true"  style="font-size: 20px" value="${question.formulation}"></input>
+                <label for="${question.idQuestion}answer">Ответ:</label> 
+                <input type="text" class="form-control" id="${question.idQuestion}answer" name="${question.idQuestion}answer" contenteditable="true"  style="font-size: 20px" value="${question.answer}"></input>
         
             </div>
             

@@ -59,7 +59,7 @@
             
             <div class="block2">
             <p><label for="teory">Теория:</label> </p>
-            <p style="text-align: center"><textarea id="teory"  name="teory" cols="150" rows="10" contenteditable="true" value=${subject.teory}" ></textarea>
+            <p style="text-align: center"><textarea id="teory"  name="teory" cols="150" rows="10" contenteditable="true" value=${subject.teory} ></textarea>
         
             </p> 
             

@@ -8,7 +8,7 @@ public abstract class DbGateway {
     DbConnection dbc;
 
     public DbGateway() throws SQLException {
-        dbc = dbc.instance();
+        dbc = DbConnection.instance();
     }
 
     public Connection getConnection() {

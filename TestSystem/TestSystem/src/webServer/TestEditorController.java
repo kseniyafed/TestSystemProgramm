@@ -31,6 +31,14 @@ public class TestEditorController extends AbstractTemplateController{
             User user = udbg.getById(sdbg.getUserIdBySessId(idSession));
             ArrayList<Question> questions = qdbg.
                     findAllByIdSubject(Integer.parseInt(subjectId));
+            for(Question ques: questions ){
+                if(formValues.get(ques.get("idQuestion")+"question")!=null && formValues.get(ques.get("idQuestion")+"answer")!=null){
+                    qdbg.update(ques.get("idQuestion").toString(), formValues.get(ques.get("idQuestion")+"question"), formValues.get(ques.get("idQuestion")+"answer"));
+                }
+                //System.out.println(formValues.get(ques.get("idQuestion")+"question")+" "+formValues.get(ques.get("idQuestion")+"answer"));
+            }
+            questions = qdbg.
+                    findAllByIdSubject(Integer.parseInt(subjectId));
             model.put("questions", questions);
             model.put("login", user.getLogin());
             model.put("subject", subject);
